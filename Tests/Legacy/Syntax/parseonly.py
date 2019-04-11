@@ -2,10 +2,7 @@ import clr
 import sys
 import System
 
-if System.Environment.Version.Major >=4:
-    clr.AddReference("System.Dynamic")
-else:
-    clr.AddReference("Microsoft.Scripting.Core")
+clr.AddReference("System.Dynamic")
 clr.AddReference("Microsoft.Scripting")
 clr.AddReference("IronRuby")
 

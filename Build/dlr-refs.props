@@ -4,12 +4,6 @@
   <Import Project="$(LocalDlrPathProperties)" Condition="Exists('$(LocalDlrPathProperties)')" />
   
   <!-- Only load the DLR core if it's needed (.NET 3.5) -->
-  <ItemGroup Condition="'$(FeatureCoreDlr)' != 'true'">
-    <Reference Include="Microsoft.Scripting.Core">
-      <HintPath>$(DlrReferences)\Microsoft.Scripting.Core.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  
   <ItemGroup>
     <Reference Include="Microsoft.Scripting">
       <HintPath>$(DlrReferences)\Microsoft.Scripting.dll</HintPath>

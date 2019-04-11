@@ -223,7 +223,6 @@ end
 describe "Binding methods" do
   #This is a temporary regression until I rewrite these specs.
   it "StrongBox works" do
-    require 'microsoft.scripting.core'
     SI = System::Runtime::CompilerServices::StrongBox[Fixnum]
     cwm = ClassWithMethods.new
     si = SI.new(0)

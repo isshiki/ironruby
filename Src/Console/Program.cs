@@ -1,82 +1,41 @@
-/* ****************************************************************************
- *
- * Copyright (c) Microsoft Corporation. 
- *
- * This source code is subject to terms and conditions of the Apache License, Version 2.0. A 
- * copy of the license can be found in the License.html file at the root of this distribution. If 
- * you cannot locate the  Apache License, Version 2.0, please send an email to 
- * ironruby@microsoft.com. By using this source code in any fashion, you are agreeing to be bound 
- * by the terms of the Apache License, Version 2.0.
- *
- * You must not remove this notice, or any other, from this software.
- *
- *
- * ***************************************************************************/
+// ***********************************************************************
+// Copyright (c) 2015 Charlie Poole, Rob Prouse
+//
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
+// 
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+// ***********************************************************************
 
-using System;
-using System.Threading;
-using IronRuby.Builtins;
-using IronRuby.Hosting;
-using IronRuby.Runtime;
-using Microsoft.Scripting.Hosting;
-using Microsoft.Scripting.Hosting.Providers;
-using Microsoft.Scripting.Hosting.Shell;
-using System.IO;
+using NUnitLite;
 
-internal sealed class Host : RubyConsoleHost {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-    private static void OnCancelKey(ConsoleCancelEventArgs ev, RubyContext context, Thread mainThread) {
-        if (ev.SpecialKey == ConsoleSpecialKey.ControlC) {
-            ev.Cancel = true;
-            Action handler = context.InterruptSignalHandler;
-
-            if (handler != null) {
-                try {
-                    handler();
-                } catch (Exception e) {
-                    RubyUtils.RaiseAsyncException(mainThread, e);
-                }
-            }
+namespace NUnitLite.Tests
+{
+    public class Program
+    {
+        /// <summary>
+        /// The main program executes the tests. Output may be routed to
+        /// various locations, depending on the arguments passed.
+        /// </summary>
+        /// <remarks>Run with --help for a full list of arguments supported</remarks>
+        /// <param name="args"></param>
+        public static int Main(string[] args)
+        {
+            return new AutoRun().Execute(args);
         }
-    }
-
-    protected override IConsole CreateConsole(ScriptEngine engine, CommandLine commandLine, ConsoleOptions options) {
-        IConsole console = base.CreateConsole(engine, commandLine, options);
-
-        Thread mainThread = Thread.CurrentThread;
-        RubyContext context = (RubyContext)HostingHelpers.GetLanguageContext(engine);
-        context.InterruptSignalHandler = delegate() { RubyUtils.RaiseAsyncException(mainThread, new Interrupt()); };
-        ((BasicConsole)console).ConsoleCancelEventHandler = delegate(object sender, ConsoleCancelEventArgs e) {
-            OnCancelKey(e, context, mainThread); 
-        };
-
-        return console;
-    }
-
-    protected override ConsoleOptions ParseOptions(string/*!*/[]/*!*/ args, ScriptRuntimeSetup/*!*/ runtimeSetup, LanguageSetup/*!*/ languageSetup) {
-        var rubyOptions = (RubyConsoleOptions)base.ParseOptions(args, runtimeSetup, languageSetup);
-        if (rubyOptions == null) {
-            return null;
-        }
-
-        if (rubyOptions.ChangeDirectory != null) {
-            Environment.CurrentDirectory = rubyOptions.ChangeDirectory;
-        }
-
-        if (rubyOptions.DisplayVersion && (rubyOptions.Command != null || rubyOptions.FileName != null)) {
-            Console.WriteLine(RubyContext.MakeDescriptionString(), Style.Out);
-        }
-
-        return rubyOptions;
-    }
-
-    protected override void ReportInvalidOption(InvalidOptionException e) {
-        Console.Error.WriteLine(e.Message);
-    }
-
-    [STAThread]
-    [RubyStackTraceHidden]
-    static int Main(string[] args) {
-        return new Host().Run(args);
     }
 }

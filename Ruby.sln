@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronRuby.Tests", "Src\IronRuby.Tests\IronRuby.Tests.csproj", "{8103D91B-89D8-4A18-9A40-426992602EA2}"
 EndProject
@@ -18,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Src\Scripts\CodeGenerator.rb = Src\Scripts\CodeGenerator.rb
 		CurrentVersion.props = CurrentVersion.props
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ruby.ConsoleAny", "Src\Console\Ruby.ConsoleAny.csproj", "{6EE7A428-D803-41BC-8248-1297C3ACE369}"
@@ -206,5 +207,8 @@ Global
 		{BBF4E796-17F9-4B55-A144-5CE412991105} = {A6B6A5B5-335A-4515-8535-954DE8A953EF}
 		{759B7613-6D6F-4107-B08A-8B235E29EEAC} = {BBF4E796-17F9-4B55-A144-5CE412991105}
 		{DBD1D64B-02AD-4A4B-83FA-CBEA95E7FF65} = {BBF4E796-17F9-4B55-A144-5CE412991105}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {672E57B9-7DC2-4468-A6A0-9533841F1E19}
 	EndGlobalSection
 EndGlobal

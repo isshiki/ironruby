@@ -64,7 +64,6 @@ pushd "Windows Phone 7"
 
 copy %SRC_WP_BIN%\Microsoft.Dynamic.dll .
 copy %SRC_WP_BIN%\Microsoft.Scripting.dll .
-copy %SRC_WP_BIN%\Microsoft.Scripting.Core.dll .
 copy %SRC_WP_BIN%\Microsoft.Scripting.Silverlight.dll .
 copy %SRC_WP_BIN%\IronRuby.dll .
 copy %SRC_WP_BIN%\IronRuby.Libraries.dll .

@@ -148,9 +148,6 @@
   <Target Name="_CopyDlrMainReferences" DependsOnTargets="_MakeStageDir">
     <ItemGroup>
       <DlrMainReferenceFiles
-          Include="$(BinDir)\$(MainBuildPrefix)$(BuildFlavour)\Microsoft.Scripting.Core.dll"
-          Condition=" Exists('$(BinDir)\$(MainPlatform)$(BuildFlavour)\Microsoft.Scripting.Core.dll')" />
-      <DlrMainReferenceFiles
           Include="$(BinDir)\$(MainBuildPrefix)$(BuildFlavour)\Microsoft.Scripting.dll" />
       <DlrMainReferenceFiles
           Include="$(BinDir)\$(MainBuildPrefix)$(BuildFlavour)\Microsoft.Dynamic.dll" />
