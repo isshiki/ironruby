@@ -55,3 +55,6 @@ Util/References
 
 /NuGet.config
 *.bak
+/packages/*
+/.DS_Store
+/.vs/*
